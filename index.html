@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TECS Self-Assessment</title>
+<meta name="description" content="Teaching-in-English Competencies Scale (TECS) self-assessment for participants in Educate's course Working and Teaching in English in Higher Education, Jönköping University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<style>
+:root{
+  --purple:#961B81; --teal:#55AAA7; --navy:#003865; --yellow:#FFB500; --grey:#797979;
+  --purple-soft:#f6e9f3; --teal-soft:#e8f4f3; --navy-soft:#e6edf3;
+  --bg:#f7f6f8; --card:#ffffff; --text:#1d1d24; --muted:#5b5b66; --line:#e2dfe6;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:17px;line-height:1.55}
+a{color:var(--purple)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+h2[tabindex="-1"]:focus,h2[tabindex="-1"]:focus-visible{outline:none}
+
+/* Header */
+.top{background:var(--bg)}
+.top-inner{max-width:880px;margin:0 auto;padding:24px 16px 10px}
+.top h1{margin:0;font-size:1.35rem;font-weight:700;line-height:1.2;color:var(--purple)}
+.top p{margin:4px 0 0;font-size:.9rem;color:var(--muted)}
+
+/* Progress */
+.progress-wrap{position:sticky;top:0;z-index:5;background:rgba(247,246,248,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.progress{max-width:880px;margin:0 auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto}
+.step-pill{flex:1 0 auto;min-width:86px;border:0;background:#ece9ef;color:var(--muted);border-radius:999px;padding:6px 12px;font:600 .82rem/1.2 inherit;cursor:pointer;white-space:nowrap}
+.step-pill[aria-current="step"]{background:var(--purple);color:#fff}
+.step-pill.done{background:var(--teal-soft);color:var(--navy)}
+.step-pill:disabled{cursor:default;opacity:.55}
+
+main{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:0 1px 2px rgba(0,0,0,.05),0 6px 24px rgba(0,56,101,.06);padding:28px;margin-bottom:20px}
+@media(max-width:600px){.card{padding:20px 16px}}
+h2{font-size:1.6rem;line-height:1.2;margin:0 0 8px;color:var(--navy)}
+h3{font-size:1.15rem;margin:24px 0 8px;color:var(--navy)}
+.lead{font-size:1.08rem;color:var(--muted);margin:0 0 16px}
+.kicker{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.note{background:var(--teal-soft);border-left:4px solid var(--teal);padding:12px 14px;border-radius:8px;margin:16px 0;font-size:.95rem}
+.note.purple{background:var(--purple-soft);border-color:var(--purple)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+label.field{display:block;font-weight:600;font-size:.92rem;margin-bottom:4px}
+input[type=text],input[type=date],select,textarea{width:100%;font:inherit;font-size:1rem;padding:10px 12px;border:1px solid #cfcad6;border-radius:10px;background:#fff;color:var(--text)}
+textarea{min-height:88px;resize:vertical}
+.hint{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+/* Round choice */
+.rounds{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 4px}
+@media(max-width:600px){.rounds{grid-template-columns:1fr}}
+.round{position:relative}
+.round input{position:absolute;opacity:0}
+.round label{display:block;border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;height:100%}
+.round label strong{display:block;color:var(--navy)}
+.round label span{font-size:.9rem;color:var(--muted)}
+.round input:checked+label{border-color:var(--purple);background:var(--purple-soft)}
+.round input:focus-visible+label{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* Items */
+.item{border-top:1px solid var(--line);padding:18px 0}
+.item:first-of-type{border-top:0}
+.item legend{font-weight:600;padding:0;margin-bottom:10px;line-height:1.4}
+.item legend .num{color:var(--purple);margin-right:6px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.scale{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opt span{display:grid;place-items:center;height:44px;border:2px solid #d8d3de;border-radius:10px;font-weight:700;color:var(--navy);background:#fff;transition:background .12s,border-color .12s}
+.opt input:hover+span{border-color:var(--teal)}
+.opt input:checked+span{background:var(--purple);border-color:var(--purple);color:#fff}
+.opt input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
+.ends{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-top:6px;gap:8px}
+.ends .mid{text-align:center}
+.item.missing legend{color:#b0006b}
+.section-intro{background:var(--navy-soft);border-radius:10px;padding:12px 14px;margin:6px 0 10px;font-size:.95rem}
+
+/* Buttons */
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin-top:20px}
+.btn{font:700 1rem/1 inherit;border-radius:999px;padding:13px 22px;border:2px solid var(--purple);background:var(--purple);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:#7d1569;border-color:#7d1569}
+.btn.ghost{background:#fff;color:var(--purple)}
+.btn.ghost:hover{background:var(--purple-soft)}
+.btn.teal{background:var(--teal);border-color:var(--teal);color:#08263c}
+.btn.teal:hover{background:#469390;border-color:#469390}
+.btn.small{padding:9px 16px;font-size:.9rem}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;font:inherit;font-size:.88rem;cursor:pointer;padding:0}
+
+/* Results */
+.profile{display:grid;gap:14px;margin:12px 0}
+.prow{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:12px}
+@media(max-width:600px){.prow{grid-template-columns:1fr 60px}.prow .bar{grid-column:1 / -1;order:3}}
+.prow .name{font-weight:700;color:var(--navy)}
+.bar{position:relative;height:18px;background:#eeebf1;border-radius:999px;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;border-radius:999px}
+.bar .prev{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--navy);border-radius:2px}
+.prow .val{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.hard{list-style:none;padding:0;margin:8px 0}
+.hard li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.hard li:first-child{border-top:0}
+.chip{flex:none;font-size:.75rem;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--navy-soft);color:var(--navy);margin-top:2px}
+.rating{flex:none;margin-left:auto;font-weight:700;color:var(--purple)}
+.action-card{border:2px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.action-card h4{margin:0 0 10px;color:var(--purple)}
+.credit{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+.hidden{display:none !important}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:.92rem;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+
+/* Report (PDF / print) */
+#report-holder{position:absolute;left:-10000px;top:0}
+.report{width:186mm;background:#fff;color:#1d1d24;font-family:"Source Sans 3",Arial,sans-serif;font-size:10.5pt;line-height:1.45}
+.report .rhead{padding:0 0 8px;border-bottom:1px solid #e2dfe6;margin-bottom:10px}
+.report .rhead h1{margin:0;font-size:16pt;color:#961B81}
+.report .rhead p{margin:3px 0 0;font-size:9.5pt;color:#5b5b66}
+.report h2{font-size:12.5pt;color:#961B81;margin:14px 0 6px}
+.report table{width:100%;border-collapse:collapse;font-size:9.5pt}
+.report th,.report td{text-align:left;padding:5px 6px;border-bottom:1px solid #e2dfe6;vertical-align:top}
+.report th{color:#003865}
+.report .rbar{height:9px;background:#eeebf1;border-radius:6px;position:relative;width:100%}
+.report .rbar span{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.report .box{border:1px solid #e2dfe6;border-radius:6px;padding:8px 10px;margin:6px 0;white-space:pre-wrap;page-break-inside:avoid}
+.report .lbl{font-weight:700;color:#003865;font-size:9.5pt}
+.report .meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:9.5pt;margin-bottom:6px}
+.report .foot{font-size:8.5pt;color:#5b5b66;border-top:1px solid #e2dfe6;margin-top:14px;padding-top:6px}
+.report .avoid{page-break-inside:avoid}
+
+@media print{
+  body{background:#fff}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .top,.progress-wrap,main,.toast{display:none !important}
+  #report-holder{position:static}
+  .report{width:auto}
+  @page{size:A4;margin:14mm}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <h1>Teaching in English: TECS Self-Assessment</h1>
+    <p>Educate &middot; Jönköping University &middot; Working and Teaching in English in Higher Education</p>
+  </div>
+</header>
+
+<nav class="progress-wrap" aria-label="Progress">
+  <div class="progress" id="progress"></div>
+</nav>
+
+<main id="app">
+  <!-- Step 0: Start -->
+  <section class="step" data-step="0" aria-labelledby="h-start">
+    <div class="card">
+      <span class="kicker">Before you start</span>
+      <h2 id="h-start">How do you experience teaching in English?</h2>
+      <p class="lead">This self-assessment helps you reflect on your confidence and on how easy or difficult you find different teaching tasks in English. It takes about ten minutes.</p>
+      <p>There are no right or wrong answers, and this is not a language test. It shows how <em>you</em> perceive your own teaching in English today. Many experienced and highly proficient lecturers find some tasks harder than others, and that is exactly what makes the result useful.</p>
+      <div class="note"><strong>Your answers stay with you.</strong> Nothing is sent or stored anywhere else. Your answers are kept only in this browser until you clear them, and you decide what to save as a PDF and what to share.</div>
+
+      <h3>About you (optional, shown only in your PDF)</h3>
+      <div class="grid2">
+        <div><label class="field" for="name">Name</label><input type="text" id="name" autocomplete="name"></div>
+        <div><label class="field" for="date">Date</label><input type="date" id="date"></div>
+      </div>
+
+      <h3>Which round is this?</h3>
+      <div class="rounds" role="radiogroup" aria-label="Round">
+        <div class="round"><input type="radio" name="round" id="r1" value="Round 1: start of the course" checked><label for="r1"><strong>Round 1</strong><span>Start of the course (Session 1)</span></label></div>
+        <div class="round"><input type="radio" name="round" id="r2" value="Round 2: before the final seminar"><label for="r2"><strong>Round 2</strong><span>Before the final examination seminar</span></label></div>
+      </div>
+
+      <div id="compare-box" class="note purple">
+        <strong>Doing round 2?</strong> If you saved a results file from round 1, load it here to see how your profile has changed.
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <label class="btn ghost small" for="prev-file" style="cursor:pointer">Load earlier results file</label>
+          <input type="file" id="prev-file" accept="application/json,.json" class="hidden">
+          <span id="prev-status" class="hint"></span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="linkbtn" id="clear-all" type="button">Clear all my answers</button>
+        <button class="btn" type="button" data-next>Start <span aria-hidden="true">&rarr;</span></button>
+      </div>
+    </div>
+  </section>
+
+  <div id="question-steps"></div>
+
+  <!-- Results -->
+  <section class="step" data-step="6" aria-labelledby="h-res">
+    <div class="card">
+      <span class="kicker">Your profile</span>
+      <h2 id="h-res">How you experience teaching in English</h2>
+      <p class="lead">Longer bars mean more confident or easier. The number is your average rating, where 1 is highly confident or very easy and 7 is highly unconfident or very difficult.</p>
+      <div class="legend" id="legend"></div>
+      <div class="profile" id="profile"></div>
+      <div class="note" id="incomplete-note"></div>
+    </div>
+
+    <div class="card">
+      <span class="kicker">Where to focus</span>
+      <h2>The tasks you rated as most challenging</h2>
+      <p class="lead">These are the items you rated highest (least confident or most difficult). They are a good starting point for your reflection.</p>
+      <ul class="hard" id="hardest"></ul>
+    </div>
+
+    <div class="card">
+      <span class="kicker">Reflect</span>
+      <h2>What does your profile tell you?</h2>
+      <label class="field" for="ref1">What surprised you, or confirmed what you already knew?</label>
+      <textarea id="ref1" data-save></textarea>
+      <label class="field" for="ref2" style="margin-top:14px">Which area matters most for your own teaching, and why?</label>
+      <textarea id="ref2" data-save></textarea>
+      <label class="field" for="ref3" style="margin-top:14px">How do your feelings about teaching in English connect to your profile?</label>
+      <textarea id="ref3" data-save></textarea>
+    </div>
+
+    <div class="card">
+      <span class="kicker">Act</span>
+      <h2>Actions for your concept note</h2>
+      <div class="note purple">In your concept note for the final examination seminar, include one or two actions you will take because of your TECS reflection. You choose what to share: the actions are what count, not the numbers.</div>
+      <div id="action-cards"></div>
+    </div>
+
+    <div class="card">
+      <span class="kicker">Save</span>
+      <h2>Keep your results</h2>
+      <p>Download a PDF to keep, print or bring to the seminars. Save the results file too if you want to compare with a later round.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <button class="btn" type="button" id="pdf-btn">Download PDF</button>
+        <button class="btn ghost" type="button" id="print-btn">Print</button>
+        <button class="btn teal" type="button" id="json-btn">Save results file</button>
+      </div>
+      <p class="hint" id="pdf-hint" style="margin-top:10px"></p>
+      <div class="actions">
+        <button class="btn ghost small" type="button" data-prev>&larr; Back to the questions</button>
+        <button class="linkbtn" type="button" id="clear-all-2">Clear all my answers</button>
+      </div>
+      <p class="credit">This self-assessment uses the <strong>Teaching-in-English Competencies Scale (TECS)</strong>, version 2025.1, by Malmström, Rose, Shepard and Dafouz, used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. The items are unchanged. Educate has added the result profile, reflection questions and action planning. Source: Malmström, H., Rose, H., Shepard, C., &amp; Dafouz, E. (2026). Introducing and validating the Teaching-in-English-Competencies-Scale (TECS) for English-medium instruction in Sweden and Spain. <em>Research Methods in Applied Linguistics, 5</em>, 100326. <a href="https://doi.org/10.1016/j.rmal.2026.100326" target="_blank" rel="noopener">doi.org/10.1016/j.rmal.2026.100326</a></p>
+    </div>
+  </section>
+</main>
+
+<div id="report-holder" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // TECS version 2025.1, items verbatim (Malmström, Rose, Shepard & Dafouz, CC BY 4.0)
+  var SECTIONS = [
+    { id:"conf", short:"Confidence", title:"Confidence in teaching in English",
+      intro:"Section 1: Teachers' self-efficacy beliefs relating to English proficiency for teaching purposes.",
+      scaleText:"On a scale from 1 (Highly confident) to 7 (Highly unconfident) please rate the following:",
+      low:"Highly confident", mid:"Neither confident nor unconfident", high:"Highly unconfident",
+      items:[
+        "Rate your overall confidence in using English for teaching purposes (e.g., delivering lectures and seminars).",
+        "Rate your confidence in using English to interact with students (e.g., student consultations and engaging in discussions on course content).",
+        "Rate your confidence in using English for assessment purposes (e.g., setting assignments, marking, providing feedback).",
+        "Rate your confidence in using English to prepare for classes (e.g., selecting appropriate reading materials, creating lecture materials)."
+      ]},
+    { id:"speak", short:"Speaking", title:"Speaking English for teaching purposes",
+      intro:"Think of yourself in a situation where you are speaking English for some teaching purpose.",
+      scaleText:"On a scale from 1 (Very easy) to 7 (Very difficult):",
+      low:"Very easy", mid:"", high:"Very difficult",
+      comment:"I want to share the following additional comments relating to speaking in English for teaching purposes (optional):",
+      items:[
+        "How easy/difficult is it for you to give verbal instructions to students (e.g., relating to a learning task)?",
+        "How easy/difficult is it for you to present disciplinary content in a lecture or seminar?",
+        "How easy/difficult is it for you to develop an argument/teaching point?",
+        "How easy/difficult is it for you to interact with students in class (e.g., ask or answer questions?)",
+        "How easy/difficult is it for you to speak fluently when teaching (i.e., speak easily, reasonably quickly, and without having to stop and pause a lot)?",
+        "How easy/difficult is it for you to speak accurately (grammatically correct) when teaching?",
+        "How easy/difficult is it for you to use pronunciation effectively when teaching (i.e., articulate words clearly, and being mindful of word and sentence stress, and intonation)?",
+        "How easy/difficult is it for you to use appropriate/fit-for-purpose vocabulary when teaching?"
+      ]},
+    { id:"write", short:"Writing", title:"Writing in English for teaching purposes",
+      intro:"Think of yourself in a situation where you are writing English for some teaching purpose.",
+      scaleText:"On a scale from 1 (Very easy) to 7 (Very difficult) please rate the following:",
+      low:"Very easy", mid:"", high:"Very difficult",
+      comment:"I want to share the following additional comments relating to writing in English for teaching purposes (optional):",
+      items:[
+        "How easy/difficult is it for you to write general (administrative) information (e.g., relating to the course syllabus, or assignment instructions) in writing?",
+        "How easy/difficult is it for you to correspond with students (e.g., via e-mail or messages through a learning management platform)?",
+        "How easy/difficult is it for you to write about disciplinary content (e.g., drafting learning material that you expect the students to read and learn from)?",
+        "How easy/difficult is it for you to provide written feedback on students\u2019 assignments?",
+        "How easy/difficult is it for you to write text in a clear, structured, and logical manner?",
+        "How easy/difficult is it for you to write text in grammatically correct English?",
+        "How easy/difficult is it for you to use appropriate/fit-for-purpose vocabulary when writing?",
+        "How easy/difficult is it for you to use appropriate writing style/tone when writing?"
+      ]},
+    { id:"listen", short:"Listening", title:"Listening in English for teaching purposes",
+      intro:"Think of yourself in a situation where you are listening to English for some teaching purpose.",
+      scaleText:"On a scale from 1 (Very easy) to 7 (Very difficult) please rate the following:",
+      low:"Very easy", mid:"", high:"Very difficult",
+      comment:"I want to share the following additional comments relating to listening in English for teaching purposes (optional):",
+      items:[
+        "How easy/difficult is it for you to understand a classroom discussion?",
+        "How easy/difficult is it for you to understand students\u2019 (formal) oral presentations about disciplinary content?",
+        "How easy/difficult is it for you to understand recorded and broadcast material (e.g., when choosing supplementary learning resources on YouTube)?",
+        "How easy/difficult is it for you to understand other speakers\u2019 English accents (varieties of English)?",
+        "How easy/difficult is it for you to understand specific words used in oral interactions?",
+        "How easy/difficult is it for you to understand a specialised lecture given by a teaching colleague from your discipline?"
+      ]},
+    { id:"read", short:"Reading", title:"Reading in English for teaching purposes",
+      intro:"Think of yourself in a situation where you are reading English for some teaching purpose.",
+      scaleText:"On a scale from 1 (Very easy) to 7 (Very difficult) please rate the following:",
+      low:"Very easy", mid:"", high:"Very difficult",
+      comment:"I want to share the following additional comments relating to reading in English for teaching purposes (optional):",
+      items:[
+        "How easy/difficult is it for you to understand different types of texts when doing background reading, such as specialised academic (scholarly) or professional publications.",
+        "How easy/difficult is it for you to read for the purposes of identifying and selecting reading materials for students?",
+        "How easy/difficult is it for you to \u2018scan\u2019 a text by looking through it quickly, searching for specific information?",
+        "How easy/difficult is it for you to draw conclusions, make predictions, and understand implied information based on the content of a text?",
+        "How easy/difficult is it for you to understand specific vocabulary used in texts?",
+        "How easy/difficult is it for you to read with accuracy at an adequate pace?"
+      ]}
+  ];
+  var COLORS = { conf:"#961B81", speak:"#55AAA7", write:"#003865", listen:"#FFB500", read:"#797979" };
+  var STORE_KEY = "ju-tecs-v1";
+  var RESULTS_STEP = SECTIONS.length + 1;
+
+  var state = { answers:{}, comments:{}, fields:{}, round:"Round 1: start of the course", prev:null, step:0 };
+
+  // ---------- storage (this browser only) ----------
+  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY);
+      if(raw){ var s = JSON.parse(raw); if(s && typeof s === "object"){ state = Object.assign(state, s); } }
+    }catch(e){}
+  }
+
+  function $(sel, root){ return (root||document).querySelector(sel); }
+  function $all(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+  function toast(msg){ var t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(function(){ t.classList.remove("show"); }, 2600); }
+
+  // ---------- build question steps ----------
+  function buildSteps(){
+    var holder = $("#question-steps"), html = "";
+    SECTIONS.forEach(function(sec, si){
+      var stepNo = si + 1;
+      html += '<section class="step" data-step="'+stepNo+'" aria-labelledby="h-'+sec.id+'"><div class="card">';
+      html += '<span class="kicker">Part '+stepNo+' of '+SECTIONS.length+'</span>';
+      html += '<h2 id="h-'+sec.id+'">'+esc(sec.title)+'</h2>';
+      html += '<p class="section-intro">'+esc(sec.intro)+'<br><strong>'+esc(sec.scaleText)+'</strong></p>';
+      sec.items.forEach(function(text, ii){
+        var key = sec.id+"-"+(ii+1);
+        html += '<div class="item" id="item-'+key+'"><fieldset><legend><span class="num">'+(ii+1)+'.</span>'+esc(text)+'</legend><div class="scale">';
+        for(var v=1; v<=7; v++){
+          var aria = v===1 ? sec.low : (v===7 ? sec.high : (v===4 && sec.mid ? sec.mid : String(v)));
+          html += '<label class="opt"><input type="radio" name="'+key+'" value="'+v+'" aria-label="'+v+': '+esc(aria)+'"><span>'+v+'</span></label>';
+        }
+        html += '</div><div class="ends"><span>1 = '+esc(sec.low)+'</span>'+(sec.mid?'<span class="mid">4 = '+esc(sec.mid)+'</span>':'')+'<span>7 = '+esc(sec.high)+'</span></div></fieldset></div>';
+      });
+      if(sec.comment){
+        html += '<div class="item"><label class="field" for="c-'+sec.id+'">'+esc(sec.comment)+'</label><textarea id="c-'+sec.id+'" data-comment="'+sec.id+'"></textarea></div>';
+      }
+      html += '<div class="actions"><button class="btn ghost" type="button" data-prev>&larr; Back</button>';
+      html += '<button class="btn" type="button" data-next>'+(stepNo===SECTIONS.length?'See my profile':'Next')+' <span aria-hidden="true">&rarr;</span></button></div>';
+      html += '</div></section>';
+    });
+    holder.innerHTML = html;
+  }
+
+  function buildProgress(){
+    var labels = ["Start"].concat(SECTIONS.map(function(s){return s.short;})).concat(["Profile"]);
+    $("#progress").innerHTML = labels.map(function(l,i){ return '<button type="button" class="step-pill" data-goto="'+i+'">'+esc(l)+'</button>'; }).join("");
+  }
+
+  function sectionComplete(sec){ return sec.items.every(function(_,i){ return state.answers[sec.id+"-"+(i+1)]; }); }
+
+  function updateProgress(){
+    $all(".step-pill").forEach(function(p){
+      var i = +p.dataset.goto;
+      p.removeAttribute("aria-current");
+      p.classList.remove("done");
+      if(i === state.step) p.setAttribute("aria-current","step");
+      else if(i>=1 && i<=SECTIONS.length && sectionComplete(SECTIONS[i-1])) p.classList.add("done");
+    });
+  }
+
+  function show(step){
+    state.step = Math.max(0, Math.min(RESULTS_STEP, step));
+    $all(".step").forEach(function(s){ s.classList.toggle("hidden", +s.dataset.step !== state.step); });
+    if(state.step === RESULTS_STEP) renderResults();
+    updateProgress();
+    save();
+    window.scrollTo({top:0, behavior:"smooth"});
+    var h = $('.step[data-step="'+state.step+'"] h2'); if(h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:true}); }
+  }
+
+  // ---------- scoring ----------
+  function mean(arr){ return arr.length ? arr.reduce(function(a,b){return a+b;},0)/arr.length : null; }
+  function sectionMean(sec, answers){
+    var vals = sec.items.map(function(_,i){ return +answers[sec.id+"-"+(i+1)]; }).filter(function(v){ return v>=1 && v<=7; });
+    return { mean: mean(vals), n: vals.length, total: sec.items.length };
+  }
+  function pct(m){ return m==null ? 0 : ((7 - m) / 6) * 100; } // 1 -> 100%, 7 -> 0%
+  function fmt(m){ return m==null ? "\u2013" : m.toFixed(1); }
+
+  function hardestItems(){
+    var all = [];
+    SECTIONS.forEach(function(sec){ sec.items.forEach(function(t,i){ var v=+state.answers[sec.id+"-"+(i+1)]; if(v) all.push({sec:sec, text:t, v:v}); }); });
+    all.sort(function(a,b){ return b.v - a.v; });
+    if(!all.length) return [];
+    var cutoff = all[Math.min(4, all.length-1)].v;
+    var top = all.filter(function(x){ return x.v >= cutoff && x.v >= 3; });
+    if(!top.length) top = all.slice(0,3);
+    return top.slice(0,7);
+  }
+
+  function shortItem(t){
+    return t.replace(/^How easy\/difficult is it for you to /,"").replace(/^Rate your (overall )?confidence in /,"Confidence in ").replace(/[A-Za-z]/, function(c){return c.toUpperCase();});
+  }
+
+  // ---------- results ----------
+  function renderResults(){
+    var prevAns = state.prev && state.prev.answers;
+    $("#legend").innerHTML = '<span><i style="background:var(--purple)"></i>'+esc(state.round)+'</span>' + (prevAns ? '<span><i style="background:var(--navy);width:4px"></i>Earlier round ('+esc(state.prev.date||"saved file")+')</span>' : "");
+    var rows = "", missing = 0;
+    SECTIONS.forEach(function(sec){
+      var r = sectionMean(sec, state.answers);
+      missing += r.total - r.n;
+      var prevMark = "";
+      if(prevAns){ var p = sectionMean(sec, prevAns); if(p.mean!=null) prevMark = '<span class="prev" style="left:calc('+pct(p.mean)+'% - 1px)" title="Earlier: '+fmt(p.mean)+'"></span>'; }
+      rows += '<div class="prow"><span class="name">'+esc(sec.short)+'</span><div class="bar" role="img" aria-label="'+esc(sec.short)+' average '+fmt(r.mean)+'"><span class="fill" style="width:'+pct(r.mean)+'%;background:'+COLORS[sec.id]+'"></span>'+prevMark+'</div><span class="val">'+fmt(r.mean)+(prevAns && sectionMean(sec,prevAns).mean!=null ? ' <small style="color:var(--muted);font-weight:600">('+fmt(sectionMean(sec,prevAns).mean)+')</small>' : '')+'</span></div>';
+    });
+    $("#profile").innerHTML = rows;
+    var note = $("#incomplete-note");
+    if(missing){ note.classList.remove("hidden"); note.innerHTML = "<strong>"+missing+" item"+(missing>1?"s are":" is")+" not answered.</strong> Your profile is based on the items you answered. You can go back and complete them at any time."; }
+    else note.classList.add("hidden");
+
+    var hard = hardestItems();
+    $("#hardest").innerHTML = hard.length ? hard.map(function(h){ return '<li><span class="chip" style="background:'+COLORS[h.sec.id]+';color:'+(h.sec.id==="listen"?"#1d1d24":"#fff")+'">'+esc(h.sec.short)+'</span><span>'+esc(shortItem(h.text))+'</span><span class="rating">'+h.v+'</span></li>'; }).join("") : '<li>Answer the questions to see your most challenging tasks.</li>';
+
+    renderActionCards();
+  }
+
+  function renderActionCards(){
+    var holder = $("#action-cards");
+    if(holder.dataset.built) return;
+    var opts = '<option value="">Choose an area</option>' + SECTIONS.map(function(s){ return '<option>'+esc(s.short)+'</option>'; }).join("") + '<option>Other</option>';
+    var html = "";
+    [1,2].forEach(function(n){
+      html += '<div class="action-card"><h4>Action '+n+(n===2?' (optional)':'')+'</h4>';
+      html += '<label class="field" for="a'+n+'-area">Area</label><select id="a'+n+'-area" data-save>'+opts+'</select>';
+      html += '<label class="field" for="a'+n+'-what" style="margin-top:10px">What will you do?</label><textarea id="a'+n+'-what" data-save placeholder="For example: prepare a glossary of key terms and introduce them at the start of each lecture."></textarea>';
+      html += '<label class="field" for="a'+n+'-how" style="margin-top:10px">How will you know it is working?</label><textarea id="a'+n+'-how" data-save placeholder="For example: fewer clarification questions about terminology; I feel calmer when explaining new concepts."></textarea></div>';
+    });
+    holder.innerHTML = html;
+    holder.dataset.built = "1";
+    restoreFields();
+  }
+
+  // ---------- fields ----------
+  function restoreFields(){
+    $all("[data-save]").forEach(function(el){ if(state.fields[el.id] != null) el.value = state.fields[el.id]; });
+  }
+  function restoreAll(){
+    Object.keys(state.answers).forEach(function(k){ var el = document.querySelector('input[name="'+k+'"][value="'+state.answers[k]+'"]'); if(el) el.checked = true; });
+    Object.keys(state.comments).forEach(function(k){ var el = $("#c-"+k); if(el) el.value = state.comments[k]; });
+    $("#name").value = state.fields.name || "";
+    $("#date").value = state.fields.date || new Date().toISOString().slice(0,10);
+    $all('input[name="round"]').forEach(function(r){ r.checked = (r.value === state.round); });
+    if(state.prev) $("#prev-status").textContent = "Earlier results loaded ("+(state.prev.date||"no date")+").";
+    restoreFields();
+  }
+
+  // ---------- report ----------
+  function buildReport(){
+    var f = state.fields, prevAns = state.prev && state.prev.answers;
+    var h = '<div class="report">';
+    h += '<div class="rhead"><h1>Teaching in English: my TECS reflection</h1><p>Working and Teaching in English in Higher Education &middot; Educate, Jönköping University</p></div>';
+    h += '<div class="meta"><div><span class="lbl">Name:</span> '+esc(f.name||"\u2013")+'</div><div><span class="lbl">Date:</span> '+esc(f.date||"")+'</div><div><span class="lbl">'+esc(state.round)+'</span></div></div>';
+    h += '<h2>My profile</h2><p style="margin:0 0 6px;font-size:9pt;color:#5b5b66">Average rating per area: 1 = highly confident / very easy, 7 = highly unconfident / very difficult. Longer bar = more confident or easier.</p>';
+    h += '<table><thead><tr><th style="width:24%">Area</th><th>Profile</th><th style="width:13%">Average</th>'+(prevAns?'<th style="width:14%">Earlier round</th>':'')+'</tr></thead><tbody>';
+    SECTIONS.forEach(function(sec){
+      var r = sectionMean(sec, state.answers);
+      h += '<tr><td><strong>'+esc(sec.short)+'</strong></td><td style="vertical-align:middle"><div class="rbar"><span style="width:'+pct(r.mean)+'%;background:'+COLORS[sec.id]+'"></span></div></td><td>'+fmt(r.mean)+(r.n<r.total?' <span style="color:#5b5b66">('+r.n+'/'+r.total+')</span>':'')+'</td>';
+      if(prevAns){ h += '<td>'+fmt(sectionMean(sec, prevAns).mean)+'</td>'; }
+      h += '</tr>';
+    });
+    h += '</tbody></table>';
+
+    var hard = hardestItems();
+    if(hard.length){
+      h += '<div class="avoid"><h2>Most challenging tasks</h2><table><tbody>';
+      hard.forEach(function(x){ h += '<tr><td style="width:18%">'+esc(x.sec.short)+'</td><td>'+esc(shortItem(x.text))+'</td><td style="width:8%;text-align:right"><strong>'+x.v+'</strong></td></tr>'; });
+      h += '</tbody></table></div>';
+    }
+
+    var refs = [["ref1","What surprised me, or confirmed what I already knew"],["ref2","The area that matters most for my teaching"],["ref3","How my feelings connect to my profile"]];
+    var anyRef = refs.some(function(r){ return (f[r[0]]||"").trim(); });
+    if(anyRef){
+      h += '<h2>My reflections</h2>';
+      refs.forEach(function(r){ if((f[r[0]]||"").trim()) h += '<div class="avoid"><div class="lbl">'+esc(r[1])+'</div><div class="box">'+esc(f[r[0]])+'</div></div>'; });
+    }
+
+    h += '<h2>Actions for my concept note</h2>';
+    var anyAct = false;
+    [1,2].forEach(function(n){
+      var a = f["a"+n+"-area"], w = (f["a"+n+"-what"]||"").trim(), hw = (f["a"+n+"-how"]||"").trim();
+      if(a || w || hw){ anyAct = true;
+        h += '<div class="box avoid"><div class="lbl">Action '+n+(a?' &middot; '+esc(a):'')+'</div>'+(w?'<div><strong>What I will do:</strong> '+esc(w)+'</div>':'')+(hw?'<div><strong>How I will know it is working:</strong> '+esc(hw)+'</div>':'')+'</div>';
+      }
+    });
+    if(!anyAct) h += '<div class="box">No actions written yet.</div>';
+
+    var anyCom = SECTIONS.some(function(s){ return (state.comments[s.id]||"").trim(); });
+    if(anyCom){
+      h += '<h2>My comments</h2>';
+      SECTIONS.forEach(function(s){ var c=(state.comments[s.id]||"").trim(); if(c) h += '<div class="avoid"><div class="lbl">'+esc(s.short)+'</div><div class="box">'+esc(c)+'</div></div>'; });
+    }
+
+    h += '<h2 style="page-break-before:always;margin-top:0">All my answers</h2>';
+    SECTIONS.forEach(function(sec){
+      h += '<div class="avoid"><table><thead><tr><th colspan="2">'+esc(sec.title)+' <span style="font-weight:400;color:#5b5b66">(1 = '+esc(sec.low)+', 7 = '+esc(sec.high)+')</span></th></tr></thead><tbody>';
+      sec.items.forEach(function(t,i){ var v = state.answers[sec.id+"-"+(i+1)]; h += '<tr><td>'+(i+1)+'. '+esc(t)+'</td><td style="width:7%;text-align:right"><strong>'+(v||"\u2013")+'</strong></td></tr>'; });
+      h += '</tbody></table></div>';
+    });
+
+    h += '<div class="foot">Based on the Teaching-in-English Competencies Scale (TECS), version 2025.1: Malmström, H., Rose, H., Shepard, C., &amp; Dafouz, E. (2026). Introducing and validating the Teaching-in-English-Competencies-Scale (TECS) for English-medium instruction in Sweden and Spain. Research Methods in Applied Linguistics, 5, 100326. https://doi.org/10.1016/j.rmal.2026.100326. Items used unchanged under CC BY 4.0. Profile, reflection and action sections added by Educate, Jönköping University. TECS shows perceived confidence and ease, not language proficiency.</div>';
+    h += '</div>';
+    $("#report-holder").innerHTML = h;
+    return $("#report-holder .report");
+  }
+
+  function fileBase(){
+    var n = (state.fields.name||"").trim().replace(/[^\w\u00C0-\u017F -]/g,"").replace(/\s+/g,"-");
+    return "TECS-reflection" + (n?"-"+n:"") + "-" + (state.fields.date || new Date().toISOString().slice(0,10));
+  }
+
+  function downloadPDF(){
+    var el = buildReport();
+    if(typeof window.html2pdf !== "function"){
+      $("#pdf-hint").textContent = "The PDF tool did not load. Use Print and choose \u201cSave as PDF\u201d instead.";
+      window.print(); return;
+    }
+    toast("Creating your PDF\u2026");
+    window.html2pdf().set({
+      margin:[12,12,14,12], filename:fileBase()+".pdf",
+      image:{type:"jpeg", quality:0.95},
+      html2canvas:{scale:2, useCORS:true, backgroundColor:"#ffffff", scrollX:0, scrollY:0},
+      jsPDF:{unit:"mm", format:"a4", orientation:"portrait"},
+      pagebreak:{mode:["css","legacy"], avoid:[".avoid","tr"]}
+    }).from(el.outerHTML, "string").save().then(function(){ toast("PDF downloaded"); }).catch(function(){
+      $("#pdf-hint").textContent = "Something went wrong creating the PDF. Use Print and choose \u201cSave as PDF\u201d instead.";
+    });
+  }
+
+  function saveJSON(){
+    var data = { tool:"JU TECS self-assessment", tecsVersion:"2025.1", round:state.round, date:state.fields.date||"", answers:state.answers };
+    var blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fileBase()+".json";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    toast("Results file saved");
+  }
+
+  function clearAll(){
+    if(!window.confirm("Clear all your answers, reflections and actions in this browser?")) return;
+    try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+    location.reload();
+  }
+
+  // ---------- events ----------
+  function bind(){
+    document.addEventListener("click", function(e){
+      var t = e.target.closest("button"); if(!t) return;
+      if(t.hasAttribute("data-next")){
+        var sec = SECTIONS[state.step-1];
+        if(sec && !sectionComplete(sec)){
+          var first = sec.items.map(function(_,i){ return sec.id+"-"+(i+1); }).filter(function(k){ return !state.answers[k]; });
+          first.forEach(function(k){ $("#item-"+k).classList.add("missing"); });
+          if(!t.dataset.warned){ t.dataset.warned="1"; toast(first.length+" unanswered. Click again to continue anyway."); $("#item-"+first[0]).scrollIntoView({behavior:"smooth",block:"center"}); return; }
+        }
+        show(state.step+1);
+      }
+      else if(t.hasAttribute("data-prev")) show(state.step-1);
+      else if(t.dataset.goto != null) show(+t.dataset.goto);
+      else if(t.id==="pdf-btn") downloadPDF();
+      else if(t.id==="print-btn"){ buildReport(); window.print(); }
+      else if(t.id==="json-btn") saveJSON();
+      else if(t.id==="clear-all" || t.id==="clear-all-2") clearAll();
+    });
+    document.addEventListener("change", function(e){
+      var el = e.target;
+      if(el.type==="radio" && el.name!=="round"){ state.answers[el.name] = +el.value; var it=$("#item-"+el.name); if(it) it.classList.remove("missing"); updateProgress(); save(); }
+      else if(el.name==="round"){ state.round = el.value; save(); }
+      else if(el.id==="prev-file"){ readPrev(el.files[0]); }
+      else if(el.hasAttribute("data-save")){ state.fields[el.id] = el.value; save(); }
+      else if(el.id==="date"){ state.fields.date = el.value; save(); }
+    });
+    document.addEventListener("input", function(e){
+      var el = e.target;
+      if(el.dataset.comment){ state.comments[el.dataset.comment] = el.value; save(); }
+      else if(el.hasAttribute("data-save")){ state.fields[el.id] = el.value; save(); }
+      else if(el.id==="name"){ state.fields.name = el.value; save(); }
+    });
+  }
+
+  function readPrev(file){
+    if(!file) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try{
+        var d = JSON.parse(r.result);
+        if(!d || typeof d.answers !== "object") throw new Error("bad");
+        state.prev = { date:d.date||"", round:d.round||"", answers:d.answers };
+        $("#prev-status").textContent = "Earlier results loaded ("+(d.date||"no date")+").";
+        save(); toast("Earlier results loaded");
+      }catch(err){ $("#prev-status").textContent = "That file could not be read. Choose a results file saved from this page."; }
+    };
+    r.readAsText(file);
+  }
+
+  buildSteps(); buildProgress(); load(); restoreAll(); bind();
+  if(!state.fields.date){ state.fields.date = $("#date").value; }
+  show(state.step || 0);
+})();
+</script>
+</body>
+</html>
